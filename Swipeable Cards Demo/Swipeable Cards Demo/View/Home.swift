@@ -27,6 +27,67 @@ struct Home: View {
             )
             .foregroundColor(.black)
             .padding()
+            
+            
+            // MARK: Users Card Stack
+            ZStack {
+                
+            }
+            .padding(.vertical)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            
+            // MARK: Action Buttons
+            HStack(spacing: 15) {
+                Button {
+                    
+                } label: {
+                    Image(systemName: "arrow.uturn.backward")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(.white)
+                        .shadow(radius: 5)
+                        .padding(13)
+                        .background(Color("Gray"))
+                        .clipShape(Circle())
+                }
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 20, weight: .black))
+                        .foregroundColor(.white)
+                        .shadow(radius: 5)
+                        .padding(18)
+                        .background(Color("Blue"))
+                        .clipShape(Circle())
+                }
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "star.fill")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(.white)
+                        .shadow(radius: 5)
+                        .padding(13)
+                        .background(Color("Yellow"))
+                        .clipShape(Circle())
+                }
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "suit.heart.fill")
+                        .font(.system(size: 20, weight: .black))
+                        .foregroundColor(.white)
+                        .shadow(radius: 5)
+                        .padding(18)
+                        .background(Color("Pink"))
+                        .clipShape(Circle())
+                }
+            }
+            .padding(.bottom)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
