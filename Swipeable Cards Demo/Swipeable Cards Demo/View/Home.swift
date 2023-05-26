@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct Home: View {
+    // Utilize the 'HomeViewModel' which contains all of the User data.
+    @StateObject var homeData: HomeViewModel = HomeViewModel()
+    
     var body: some View {
         VStack {
             // MARK: Top Navigation Bar
