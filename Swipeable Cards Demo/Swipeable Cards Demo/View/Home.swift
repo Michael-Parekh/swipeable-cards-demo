@@ -34,7 +34,22 @@ struct Home: View {
             
             // MARK: Users Card Stack
             ZStack {
-                
+                if let users = homeData.displaying_users {
+                    if users.isEmpty {
+                        // If there are no more Users left, then display the following message.
+                        Text("Check back later for more matches!")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                    } else {
+                        // If there are Users, display the User card stack.
+                        ForEach(users) { user in
+                            StackCardView(user: user)
+                                .environmentObject(homeData)
+                        }
+                    }
+                } else {
+                    ProgressView()
+                }
             }
             .padding(.vertical)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
