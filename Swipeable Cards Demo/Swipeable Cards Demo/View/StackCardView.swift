@@ -17,15 +17,21 @@ struct StackCardView: View {
         GeometryReader { proxy in
             let size = proxy.size
             
+            let index = CGFloat(homeData.getIndex(user: user))
+            // Use the index of the current User to show the offset preview of the next two cards at the top (only first three Users).
+            let topOffset = (index <= 2 ? index : 2) * 15
+            
             ZStack {
                 Image(user.profilePic)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: size.width, height: size.height)
+                    .frame(width: size.width - topOffset, height: size.height)
                     .cornerRadius(15)
+                    .offset(y: -topOffset)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
+        .contentShape(Rectangle())
     }
 }
 

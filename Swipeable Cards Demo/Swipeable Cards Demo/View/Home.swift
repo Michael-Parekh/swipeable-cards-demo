@@ -53,6 +53,7 @@ struct Home: View {
                 }
             }
             .padding(.top, 30)
+            .padding(.vertical)
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             

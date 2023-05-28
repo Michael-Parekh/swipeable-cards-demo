@@ -25,4 +25,13 @@ class HomeViewModel: ObservableObject {
         // To reduce memory usage, instantiate 'displaying_users' which is updated/removed based on user interaction.
         displaying_users = fetched_users
     }
+    
+    // Method to get the index of a particular User in the currently displaying stack. 
+    func getIndex(user: User) -> Int {
+        let index = displaying_users?.firstIndex(where: { currentUser in
+            return user.id == currentUser.id
+        }) ?? 0
+        
+        return index
+    }
 }
