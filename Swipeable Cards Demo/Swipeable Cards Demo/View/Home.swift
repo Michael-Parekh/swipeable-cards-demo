@@ -42,7 +42,8 @@ struct Home: View {
                             .foregroundColor(.gray)
                     } else {
                         // If there are Users, display the User card stack.
-                        ForEach(users) { user in
+                        // Note that the cards are in reversed order since it's a 'ZStack' (so fix it by using 'reversed').
+                        ForEach(users.reversed()) { user in
                             StackCardView(user: user)
                                 .environmentObject(homeData)
                         }
@@ -51,7 +52,8 @@ struct Home: View {
                     ProgressView()
                 }
             }
-            .padding(.vertical)
+            .padding(.top, 30)
+            .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             
