@@ -15,6 +15,7 @@ struct StackCardView: View {
     // Properties that are required for the swipe gesture.
     @State var offset: CGFloat = 0
     @GestureState var isDragging: Bool = false
+    @State var endSwipe: Bool = false
     
     var body: some View {
         // Use 'GeometryReader' to read the size and position of the card's parent view (so we can create a layout that adapts to changes in the parent view’s size and position).
@@ -36,7 +37,7 @@ struct StackCardView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
         .offset(x: offset)
-        .contentShape(Rectangle())
+        .contentShape(Rectangle().trim(from: 0, to: endSwipe ? 0 : 1))
         .gesture(
             DragGesture()
                 .updating($isDragging, body: { value, out, _ in
@@ -56,6 +57,7 @@ struct StackCardView: View {
                         if checkingStatus > (width / 2) {
                             // Remove the card from the screen if it's dragged a sufficient distance.
                             offset = (translation > 0 ? width : -width) * 2
+                            endSwipeActions()
                         } else {
                             // Reset the card to the center if it's not dragged far enough.
                             offset = .zero
@@ -63,6 +65,19 @@ struct StackCardView: View {
                     }
                 })
         )
+    }
+    
+    func endSwipeActions() {
+        withAnimation(.none){endSwipe = true}
+        
+        // After the card is moved away from the screen, remove it from the array to preserve memory (delay time is based on the animation duration).
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            if let _ = homeData.displaying_users?.first {
+                let _ = withAnimation {
+                    homeData.displaying_users?.removeFirst()
+                }
+            }
+        }
     }
 }
 
