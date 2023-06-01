@@ -37,6 +37,7 @@ struct StackCardView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
         .offset(x: offset)
+        .rotationEffect(.init(degrees: getRotation(angle: 8)))
         .contentShape(Rectangle().trim(from: 0, to: endSwipe ? 0 : 1))
         .gesture(
             DragGesture()
@@ -65,6 +66,12 @@ struct StackCardView: View {
                     }
                 })
         )
+    }
+    
+    // Method to calculate the downward rotation of cards as they are swiped.
+    func getRotation(angle: Double) -> Double {
+        let rotation = (offset / (getRect().width - 50)) * angle
+        return rotation
     }
     
     func endSwipeActions() {
