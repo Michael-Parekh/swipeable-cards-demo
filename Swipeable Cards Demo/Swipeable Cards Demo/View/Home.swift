@@ -109,6 +109,8 @@ struct Home: View {
                 }
             }
             .padding(.bottom)
+            .disabled(homeData.displaying_users?.isEmpty ?? false)
+            .opacity((homeData.displaying_users?.isEmpty ?? false) ? 0.6 : 1)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
