@@ -66,6 +66,19 @@ struct StackCardView: View {
                     }
                 })
         )
+        // Recieve the swipe POST notification from 'Home'.
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("ACTIONFROMBUTTON"), object: nil)) { data in
+            guard let info = data.userInfo else {
+                return
+            }
+            
+            let id = info["id"] as? String ?? ""
+            let rightSwipe = info["rightSwipe"] as? Bool ?? false
+            
+            if user.id == id {
+                // Remove card...
+            }
+        }
     }
     
     // Method to calculate the downward rotation of cards as they are swiped.

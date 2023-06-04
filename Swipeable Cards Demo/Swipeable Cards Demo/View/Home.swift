@@ -73,7 +73,7 @@ struct Home: View {
                 }
                 
                 Button {
-                    
+                    doSwipe(rightSwipe: true)
                 } label: {
                     Image(systemName: "xmark")
                         .font(.system(size: 20, weight: .black))
@@ -97,7 +97,7 @@ struct Home: View {
                 }
                 
                 Button {
-                    
+                    doSwipe()
                 } label: {
                     Image(systemName: "suit.heart.fill")
                         .font(.system(size: 20, weight: .black))
@@ -113,6 +113,20 @@ struct Home: View {
             .opacity((homeData.displaying_users?.isEmpty ?? false) ? 0.6 : 1)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+    }
+    
+    // Method that enables "swiping" by using the action buttons.
+    func doSwipe(rightSwipe: Bool = false) {
+        guard let first = homeData.displaying_users?.first else {
+            return
+        }
+        
+        // Use 'NotificationCenter' to POST the swipe action (and recieve it in 'StackCardView').
+        NotificationCenter.default.post(name: NSNotification.Name("ACTIONFROMBUTTON"), object: nil,
+            userInfo: [
+                "id": first.id,
+                "rightSwipe": rightSwipe
+        ])
     }
 }
 
