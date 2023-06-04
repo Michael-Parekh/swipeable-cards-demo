@@ -59,6 +59,12 @@ struct StackCardView: View {
                             // Remove the card from the screen if it's dragged a sufficient distance.
                             offset = (translation > 0 ? width : -width) * 2
                             endSwipeActions()
+                            
+                            if translation > 0 {
+                                rightSwipe()
+                            } else {
+                                leftSwipe()
+                            }
                         } else {
                             // Reset the card to the center if it's not dragged far enough.
                             offset = .zero
@@ -74,9 +80,20 @@ struct StackCardView: View {
             
             let id = info["id"] as? String ?? ""
             let rightSwipe = info["rightSwipe"] as? Bool ?? false
+            let width = getRect().width - 50
             
             if user.id == id {
-                // Remove card...
+                // Remove the card if the swiped card ID matches the ID of the current card on the stack.
+                withAnimation {
+                    offset = (rightSwipe ? width : -width) * 2
+                    endSwipeActions()
+                    
+                    if rightSwipe {
+                        self.rightSwipe()
+                    } else {
+                        leftSwipe()
+                    }
+                }
             }
         }
     }
@@ -98,6 +115,14 @@ struct StackCardView: View {
                 }
             }
         }
+    }
+    
+    func leftSwipe() {
+        print("Left swipe actions...")
+    }
+    
+    func rightSwipe() {
+        print("Right swipe actions...")
     }
 }
 
